@@ -3,9 +3,9 @@
 import type { ReactNode } from "react";
 import type { MetricsTimeseries, TimeseriesGranularity } from "@kamel/shared";
 import {
+  Area,
+  AreaChart,
   CartesianGrid,
-  Line,
-  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -15,6 +15,7 @@ import {
   EVENT_TYPE_OPTIONS,
   type EventTypeFilter,
 } from "../api.js";
+import { chartColors } from "../theme/colors.js";
 import { EmptyState, Panel, Skeleton } from "./Panel.js";
 
 export function TimeseriesChart(props: {
@@ -85,41 +86,42 @@ export function TimeseriesChart(props: {
     count: p.count,
     label: formatBucket(p.bucket, props.granularity, tz),
   }));
+  const colors = chartColors();
 
   return (
     <Panel title="Events over time" tools={tools}>
       <div style={{ width: "100%", height: 240 }}>
         <ResponsiveContainer>
-          <LineChart data={chartData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-            <CartesianGrid stroke="#2a3344" strokeDasharray="3 3" />
+          <AreaChart data={chartData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+            <CartesianGrid stroke={colors.border} strokeDasharray="3 3" />
             <XAxis
               dataKey="label"
-              tick={{ fill: "#8b97ab", fontSize: 11 }}
+              tick={{ fill: colors.textMuted, fontSize: 11 }}
               interval="preserveStartEnd"
               minTickGap={24}
             />
             <YAxis
-              tick={{ fill: "#8b97ab", fontSize: 11 }}
+              tick={{ fill: colors.textMuted, fontSize: 11 }}
               width={40}
               allowDecimals={false}
             />
             <Tooltip
               contentStyle={{
-                background: "#161b22",
-                border: "1px solid #2a3344",
+                background: colors.surface,
+                border: `1px solid ${colors.border}`,
                 borderRadius: 6,
               }}
-              labelStyle={{ color: "#8b97ab" }}
+              labelStyle={{ color: colors.textMuted }}
             />
-            <Line
+            <Area
               type="monotone"
               dataKey="count"
-              stroke="#3dbaa0"
+              stroke={colors.amber}
+              fill={colors.timeseriesFill}
               strokeWidth={2}
-              dot={false}
               isAnimationActive={false}
             />
-          </LineChart>
+          </AreaChart>
         </ResponsiveContainer>
       </div>
       <div className="heatmap-meta">Buckets in {tz}</div>

@@ -1,0 +1,50 @@
+/* Desert/camel theme tokens — single source of truth for the dashboard palette. */
+
+:root {
+  color-scheme: dark;
+
+  /* Warm-neutral base */
+  --bg: #17120d;
+  --surface: #201a13;
+  --surface-raised: #2a2219;
+  --border: #3a2f23;
+  --text: #f2e9dc;
+  /* Passes ≥4.5:1 on --surface (≈6:1); do not darken without rechecking. */
+  --text-muted: #a79683;
+
+  /* Accents */
+  --camel: #c19a6b;
+  --camel-light: #ddbb8e;
+  --camel-dark: #8c6d46;
+  --amber: #e0a458;
+  /* Lightened from #C25E4A so labels on --surface clear 4.5:1. */
+  --terracotta: #d4705c;
+  --oasis: #5b9e8f;
+  --dusk: #6b5b7b;
+
+  /* Multi-series order for charts */
+  --series-1: var(--camel);
+  --series-2: var(--amber);
+  --series-3: var(--oasis);
+  --series-4: var(--dusk);
+  --series-5: var(--terracotta);
+
+  /* Heatmap sequential stops (low → high). Min is raised so empty cells
+     stay visible on --surface panels. */
+  --heatmap-0: var(--surface-raised);
+  --heatmap-1: var(--camel-dark);
+  --heatmap-2: var(--camel);
+  --heatmap-3: var(--amber);
+
+  --skeleton: #2a2219;
+  --skeleton-mid: #3a2f23;
+  --error-banner-fg: #f0b4a8;
+  --error-banner-bg: color-mix(in srgb, var(--terracotta) 14%, transparent);
+  --camel-glow: color-mix(in srgb, var(--camel) 28%, transparent);
+  --timeseries-fill: color-mix(in srgb, var(--camel) 28%, transparent);
+
+  --font: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  --radius: 8px;
+  --shadow: 0 1px 0 color-mix(in srgb, var(--text) 4%, transparent) inset;
+}

@@ -37,13 +37,11 @@ export function PipelineHealth(props: {
           <div className="pipeline-counts">
             <div>
               <div className="stat-label">Accepted</div>
-              <strong>{formatCount(acceptedCount)}</strong>
+              <strong className="pipeline-accepted">{formatCount(acceptedCount)}</strong>
             </div>
             <div>
               <div className="stat-label">Dead-lettered</div>
-              <strong style={{ color: deadLetterCount > 0 ? "var(--danger)" : undefined }}>
-                {formatCount(deadLetterCount)}
-              </strong>
+              <strong className="pipeline-dead">{formatCount(deadLetterCount)}</strong>
             </div>
           </div>
           {recentDeadLetters.length === 0 ? (

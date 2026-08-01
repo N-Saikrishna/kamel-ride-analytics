@@ -1,23 +1,4 @@
-/* Dense dark analytics shell — teal accent on charcoal, IBM Plex typography. */
-
-:root {
-  color-scheme: dark;
-  --bg: #0e1116;
-  --bg-elevated: #161b22;
-  --bg-soft: #1c2330;
-  --border: #2a3344;
-  --text: #e8edf5;
-  --text-muted: #8b97ab;
-  --accent: #3dbaa0;
-  --accent-dim: #2a7f6e;
-  --danger: #e36b6b;
-  --warn: #d4a017;
-  --skeleton: #242b38;
-  --font: "IBM Plex Sans", "Segoe UI", sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, monospace;
-  --radius: 8px;
-  --shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
-}
+/* Dense dark analytics shell — layout and components; colors from theme/tokens.css. */
 
 * {
   box-sizing: border-box;
@@ -33,8 +14,16 @@ body,
 body {
   font-family: var(--font);
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(61, 186, 160, 0.08), transparent 55%),
-    radial-gradient(900px 500px at 100% 0%, rgba(80, 120, 200, 0.06), transparent 50%),
+    radial-gradient(
+      1200px 600px at 10% -10%,
+      color-mix(in srgb, var(--camel) 10%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 500px at 100% 0%,
+      color-mix(in srgb, var(--dusk) 12%, transparent),
+      transparent 50%
+    ),
     var(--bg);
   color: var(--text);
   line-height: 1.4;
@@ -44,6 +33,11 @@ button,
 select {
   font: inherit;
   color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
 }
 
 .app {
@@ -84,7 +78,7 @@ select {
   border: 1px solid var(--border);
   border-radius: 999px;
   overflow: hidden;
-  background: var(--bg-elevated);
+  background: var(--surface);
 }
 
 .seg button {
@@ -96,7 +90,7 @@ select {
 }
 
 .seg button[aria-pressed="true"] {
-  background: var(--bg-soft);
+  background: var(--surface-raised);
   color: var(--text);
 }
 
@@ -105,15 +99,15 @@ select {
   align-items: center;
   gap: 0.4rem;
   border: 1px solid var(--border);
-  background: var(--bg-elevated);
+  background: var(--surface);
   border-radius: 999px;
   padding: 0.35rem 0.75rem;
   cursor: pointer;
 }
 
 .live-toggle[data-on="true"] {
-  border-color: var(--accent-dim);
-  color: var(--accent);
+  border-color: var(--camel-dark);
+  color: var(--camel-light);
 }
 
 .live-dot {
@@ -124,8 +118,8 @@ select {
 }
 
 .live-toggle[data-on="true"] .live-dot {
-  background: var(--accent);
-  box-shadow: 0 0 0 3px rgba(61, 186, 160, 0.2);
+  background: var(--camel);
+  box-shadow: 0 0 0 3px var(--camel-glow);
 }
 
 .grid-stats {
@@ -147,7 +141,7 @@ select {
 }
 
 .panel {
-  background: var(--bg-elevated);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -181,6 +175,8 @@ select {
 }
 
 .stat {
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
   padding: 0.85rem 1rem;
 }
 
@@ -197,6 +193,7 @@ select {
   font-size: 1.35rem;
   font-weight: 500;
   letter-spacing: -0.02em;
+  color: var(--text);
 }
 
 .stat-sub {
@@ -206,7 +203,7 @@ select {
 }
 
 select.control {
-  background: var(--bg-soft);
+  background: var(--surface-raised);
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 0.25rem 0.45rem;
@@ -232,6 +229,7 @@ table.routes td {
 }
 
 table.routes th {
+  background: var(--surface-raised);
   color: var(--text-muted);
   font-weight: 500;
   font-size: 0.72rem;
@@ -276,6 +274,7 @@ table.routes td.num {
   aspect-ratio: 1;
   border-radius: 2px;
   min-height: 10px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--border) 70%, transparent);
 }
 
 .heatmap-meta {
@@ -300,7 +299,7 @@ table.routes td.num {
 
 .funnel-track {
   height: 1.1rem;
-  background: var(--bg-soft);
+  background: var(--surface-raised);
   border-radius: 4px;
   overflow: hidden;
   position: relative;
@@ -308,7 +307,7 @@ table.routes td.num {
 
 .funnel-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+  background: linear-gradient(90deg, var(--camel-dark), var(--camel-light));
   border-radius: 4px;
 }
 
@@ -321,7 +320,7 @@ table.routes td.num {
 .funnel-drop {
   grid-column: 2;
   font-size: 0.7rem;
-  color: var(--danger);
+  color: var(--terracotta);
   margin: -0.15rem 0 0.35rem;
   font-family: var(--mono);
 }
@@ -337,6 +336,14 @@ table.routes td.num {
   font-size: 1.1rem;
 }
 
+.pipeline-accepted {
+  color: var(--oasis);
+}
+
+.pipeline-dead {
+  color: var(--terracotta);
+}
+
 .dead-list {
   list-style: none;
   margin: 0;
@@ -347,7 +354,7 @@ table.routes td.num {
 }
 
 .dead-item {
-  background: var(--bg-soft);
+  background: var(--surface-raised);
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 0.5rem 0.65rem;
@@ -366,7 +373,7 @@ table.routes td.num {
   word-break: break-word;
   font-family: var(--mono);
   font-size: 0.7rem;
-  color: var(--danger);
+  color: var(--terracotta);
 }
 
 .empty {
@@ -377,9 +384,9 @@ table.routes td.num {
 }
 
 .error-banner {
-  border: 1px solid var(--danger);
-  background: rgba(227, 107, 107, 0.08);
-  color: #ffc9c9;
+  border: 1px solid var(--terracotta);
+  background: var(--error-banner-bg);
+  color: var(--error-banner-fg);
   border-radius: var(--radius);
   padding: 0.75rem 1rem;
 }
@@ -388,7 +395,7 @@ table.routes td.num {
   background: linear-gradient(
     90deg,
     var(--skeleton) 0%,
-    #2e3648 50%,
+    var(--skeleton-mid) 50%,
     var(--skeleton) 100%
   );
   background-size: 200% 100%;

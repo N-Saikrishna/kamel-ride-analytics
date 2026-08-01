@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import type { MetricsHeatmap } from "@kamel/shared";
+import { heatmapFill } from "../theme/colors.js";
 import { EmptyState, Panel, Skeleton } from "./Panel.js";
 
 const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -74,9 +75,7 @@ function DowRow(props: {
             key={`${props.dow}-${hour}`}
             className="heatmap-cell"
             title={`${props.label} ${hour}:00 — ${count}`}
-            style={{
-              background: `rgba(61, 186, 160, ${0.08 + intensity * 0.92})`,
-            }}
+            style={{ background: heatmapFill(intensity) }}
           />
         );
       })}
