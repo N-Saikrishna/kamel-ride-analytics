@@ -1,4 +1,12 @@
 {
   "version": 2,
-  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }]
+  "buildCommand": "npm run build -w @kamel/web",
+  "outputDirectory": "packages/web/dist",
+  "rewrites": [
+    { "source": "/metrics/(.*)", "destination": "/api" },
+    { "source": "/events/(.*)", "destination": "/api" },
+    { "source": "/events", "destination": "/api" },
+    { "source": "/health", "destination": "/api" },
+    { "source": "/api/(.*)", "destination": "/api" }
+  ]
 }
