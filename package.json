@@ -8,6 +8,7 @@
     "dev": "npm run dev -w @kamel/server",
     "migrate": "npm run migrate -w @kamel/server",
     "simulate:backfill": "npm run backfill -w @kamel/simulator --",
-    "simulate:stream": "npm run stream -w @kamel/simulator --"
+    "simulate:stream": "npm run stream -w @kamel/simulator --",
+    "test": "npm run test -w @kamel/server"
   }
 }

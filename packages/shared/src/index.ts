@@ -1,4 +1,4 @@
-// Public exports for @kamel/shared — event schemas, types, and parseEvent.
+// Public exports for @kamel/shared — event schemas, metrics types, and parseEvent.
 
 export {
   BaseEventSchema,
@@ -33,3 +33,43 @@ export type {
   ParseEventSuccess,
   ParseEventFailure,
 } from "./events.js";
+
+export {
+  IsoDateParamSchema,
+  MetricsRangeQuerySchema,
+  MetricsSummarySchema,
+  FunnelStepNameSchema,
+  FunnelStepSchema,
+  MetricsFunnelSchema,
+  TimeseriesGranularitySchema,
+  EventTypeFilterSchema,
+  MetricsTimeseriesQuerySchema,
+  TimeseriesPointSchema,
+  MetricsTimeseriesSchema,
+  MetricsRoutesQuerySchema,
+  RouteStatSchema,
+  MetricsRoutesSchema,
+  HeatmapCellSchema,
+  MetricsHeatmapSchema,
+  DeadLetterItemSchema,
+  MetricsPipelineHealthSchema,
+} from "./metrics.js";
+
+export type {
+  MetricsRangeQuery,
+  MetricsSummary,
+  FunnelStepName,
+  FunnelStep,
+  MetricsFunnel,
+  TimeseriesGranularity,
+  MetricsTimeseriesQuery,
+  TimeseriesPoint,
+  MetricsTimeseries,
+  MetricsRoutesQuery,
+  RouteStat,
+  MetricsRoutes,
+  HeatmapCell,
+  MetricsHeatmap,
+  DeadLetterItem,
+  MetricsPipelineHealth,
+} from "./metrics.js";
