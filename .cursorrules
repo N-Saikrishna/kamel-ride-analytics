@@ -1,0 +1,27 @@
+Project: event analytics platform for Kamel Ride, a student ride-share
+social app. Built as a take-home for a product engineering internship.
+
+Stack (do not substitute):
+- TypeScript strict mode everywhere, ES modules
+- Backend: Fastify, deployed as Vercel serverless functions
+- Validation: Zod
+- DB: Postgres on Neon, via the `postgres` (postgres.js) package
+- Frontend: Vite + React + Recharts
+- npm workspaces monorepo: packages/shared, packages/server,
+  packages/web, packages/simulator
+
+Rules:
+- Event types and Zod schemas live in packages/shared and are imported by
+  every other package. Never redefine a type locally.
+- No `any`. No non-null assertions.
+- Serverless constraints: no in-memory state between requests, no
+  WebSockets, no local file writes. Use a pooled Neon connection.
+- Env vars are Zod-parsed once in a config module at startup; never read
+  process.env elsewhere.
+- Every file gets a one-line header comment explaining its role.
+- Explain choices in comments where a reviewer would ask "why this and
+  not the obvious alternative?"
+
+Workflow:
+- The repo root, git, .gitignore, .env and workspace layout already exist.
+  Do not run git init, do not create commits, do not restructure folders.
