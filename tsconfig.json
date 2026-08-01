@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "paths": {
+      "@kamel/shared": ["./packages/shared/src/index.ts"],
+      "@kamel/server/*": ["./packages/server/src/*"]
+    }
+  },
+  "include": ["api/**/*.ts", "packages/*/src/**/*.ts"]
+}
