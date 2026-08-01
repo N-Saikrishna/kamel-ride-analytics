@@ -12,7 +12,7 @@ An event collection and analytics system for Kamel Ride, a student ride-share so
 | Database | Postgres (Neon serverless) |
 | Frontend | React, Vite, Recharts |
 | Testing | Node.js test runner (`node:test` via `tsx`) |
-| Deployment | Vercel |
+| Deployment | Configured for Vercel serverless (`api/index.ts` + `vercel.json`); runs locally by default |
 
 ## Architecture
 
@@ -53,7 +53,7 @@ An event collection and analytics system for Kamel Ride, a student ride-share so
 | `GET /metrics/*` | All rollups in SQL over `?from=&to=` (default last 7 days). |
 | Dashboard | Vite + React; polls metrics (optional Live every 3s). |
 
-Locally the API listens on port **3000**; the dashboard on **5173** and proxies `/metrics` to the API. On Vercel, `vercel.json` rewrites `/metrics/*` (and ingest paths) to the serverless handler so the UI can call same-origin `/metrics`.
+Locally the API listens on port **3000**; the dashboard on **5173** and proxies `/metrics` to the API. The repo also includes `api/index.ts` and `vercel.json` (rewrites for `/metrics/*` and ingest paths) so the same app can be deployed as Vercel serverless later; there is no hosted deployment in this take-home as shipped.
 
 ## Quickstart
 
@@ -232,15 +232,15 @@ Also: `GET /health`, `POST /events`, `POST /events/batch` (max 500 per batch).
 
 ### Serverless Postgres settings
 
-**Problem:** Vercel isolates are short-lived; Neon’s pooler runs in transaction mode.
+**Problem:** The project targets a serverless runtime (short-lived isolates, Neon pooler in transaction mode), even though the default workflow is local `npm run dev`.
 
-**Choice:** `postgres.js` with `max: 1` (one connection per isolate) and `prepare: false` (PgBouncer transaction mode cannot safely use named prepared statements).
+**Choice:** `postgres.js` with `max: 1` (one connection per isolate) and `prepare: false` (PgBouncer transaction mode cannot safely use named prepared statements). Those settings follow from the serverless constraint, not from a live hosted deploy.
 
 ### Polling instead of WebSockets
 
-**Problem:** The dashboard wants near-live updates.
+**Problem:** The dashboard wants near-live updates, but a serverless target cannot hold persistent WebSocket connections.
 
-**Choice:** Optional Live mode polls `/metrics/*` every 3 seconds. Vercel serverless functions cannot hold persistent WebSocket connections, so the UI never opens one.
+**Choice:** Optional Live mode polls `/metrics/*` every 3 seconds. That is a consequence of designing against the same serverless constraint as the DB client above.
 
 ## Project structure
 
@@ -250,7 +250,7 @@ packages/
   server/      Fastify ingest + metrics, Neon client, migrations, funnel integration test
   simulator/   Seeded CLI traffic generator (backfill + stream)
   web/         Vite + React + Recharts dashboard
-api/           Vercel serverless entry wrapping the Fastify app
+api/           Vercel serverless entry wrapping the Fastify app (present; not required for local run)
 ```
 
 ## Testing
