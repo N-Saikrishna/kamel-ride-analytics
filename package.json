@@ -6,6 +6,8 @@
   "engines": { "node": ">=20" },
   "scripts": {
     "dev": "npm run dev -w @kamel/server",
-    "migrate": "npm run migrate -w @kamel/server"
+    "migrate": "npm run migrate -w @kamel/server",
+    "simulate:backfill": "npm run backfill -w @kamel/simulator --",
+    "simulate:stream": "npm run stream -w @kamel/simulator --"
   }
 }

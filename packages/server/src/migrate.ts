@@ -18,15 +18,12 @@ const files = (await readdir(migrationsDir))
 for (const file of files) {
   const path = join(migrationsDir, file);
   const body = await readFile(path, "utf8");
-  // Split on statement boundaries — postgres.js extended query runs one statement at a time.
-  const statements = body
-    .split(";")
-    .map((s) => s.trim())
-    .filter((s) => s.length > 0);
-
-  for (const statement of statements) {
-    await sql.unsafe(statement);
-  }
+  // Simple query protocol runs the whole file (multiple statements) in one
+  // round-trip. Splitting on ';' breaks CREATE TABLE bodies mid-statement.
+  // Transaction keeps a half-applied migration from leaving partial DDL.
+  await sql.begin(async (tx) => {
+    await tx.unsafe(body).simple();
+  });
   console.log(`Applied ${file}`);
 }
 

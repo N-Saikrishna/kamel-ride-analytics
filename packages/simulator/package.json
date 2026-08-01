@@ -1,0 +1,19 @@
+{
+  "name": "@kamel/simulator",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "backfill": "tsx --env-file=../../.env src/index.ts --mode backfill",
+    "stream": "tsx --env-file=../../.env src/index.ts --mode stream"
+  },
+  "dependencies": {
+    "@kamel/shared": "*",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
