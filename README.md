@@ -2,6 +2,18 @@
 
 An event collection and analytics system for Kamel Ride, a student ride-share social app. The stack is end-to-end TypeScript: a traffic simulator posts coherent session events to an ingestion API, Zod validates them into Postgres (`events` and `dead_letter_events`), SQL aggregations expose a metrics API, and a React dashboard renders the results.
 
+## Tech stack
+
+| Layer | Choice |
+| --- | --- |
+| Language | TypeScript (strict), ES modules, npm workspaces monorepo |
+| Backend | Fastify — light HTTP layer that wraps cleanly as a Vercel serverless handler |
+| Validation | Zod — one schema shared by simulator, API, and dashboard |
+| Database | Postgres (Neon serverless) |
+| Frontend | React, Vite, Recharts |
+| Testing | Node.js test runner (`node:test` via `tsx`) |
+| Deployment | Vercel |
+
 ## Architecture
 
 ```
